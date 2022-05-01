@@ -10,35 +10,43 @@ let refreshTokens = [];
 const userRegisterController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(req.body);
-
+ 
     // Password Encryption
     const email1 = email.toLowerCase();
     const passwordHash = await bcrypt.hash(password, 10);
 
-  } = req.body;
+    let newUser;
+    if (req.file && req.file.filename) {
+      newUser = new Users({
+        ...req.body,
+        logo: req.file.filename || "",
+        password: passwordHash,
+        email: email1,
+        confirmPassword: passwordHash
+      });
+    } else {
+      newUser = new Users({
+        ...req.body,
+        password: passwordHash,
+        email: email1,
+      });
+    }
 
+    // Save mongodb
+    await newUser.save();
 
-  // Password Encryption
-  const email1 = email.toLowerCase();
-  const passwordHash = await bcrypt.hash(password, 10);
+    // Then create jsonwebtoken to authentication
+    const accesstoken = createAccessToken({ id: newUser._id });
+    const refreshtoken = createRefreshToken({ id: newUser._id });
 
-  let newUser;
-  if (req.file && req.file.filename) {
-    newUser = new Users({
-      ...req.body,
-      logo: req.file.filename || "",
-      password: passwordHash,
-      email: email1,
-      confirmPassword: passwordHash
+    res.cookie("refreshtoken", refreshtoken, {
+      httpOnly: true,
+      path: "/user/refresh_token",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
     });
-  } else {
-    newUser = new Users({
-      ...req.body,
-      password: passwordHash,
-      email: email1,
-    });
-  }
+
+    res.json({ accesstoken })
+  } 
 
   // Save mongodb
   await newUser.save();
@@ -55,24 +63,6 @@ const userRegisterController = async (req, res, next) => {
 
   res.json({ accesstoken });
 } catch (err) {
-  return res.status(400).json({ msg: err.message });
-}
-
-// Save mongodb
-await newUser.save();
-
-// Then create jsonwebtoken to authentication
-const accesstoken = createAccessToken({ id: newUser._id });
-const refreshtoken = createRefreshToken({ id: newUser._id });
-
-res.cookie("refreshtoken", refreshtoken, {
-  httpOnly: true,
-  path: "/user/refresh_token",
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-});
-
-res.json({ accesstoken });
-  } catch (err) {
   return res.status(400).json({ msg: err.message });
 }
 };
