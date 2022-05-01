@@ -1,7 +1,6 @@
 const userRouter = require("express").Router({ caseSensitive: true });
 const isAuthenticated = require('../Middleware/common/isAuthenticate')
 const {
-<<<<<<< HEAD
   userRegisterController,
   userLoginController,
   userLogoutController,
@@ -9,19 +8,8 @@ const {
   refreshToken,
   getAllUserDataController,
   getSingleUserData,
-  createAccessToken,
-  createRefreshToken,
-=======
-    userRegisterController,
-    userLoginController,
-    userLogoutController,
-    userUpdateController,
-    refreshToken,
-    getAllUserDataController,
-    getSingleUserData,
-    isAuthenticate
+  isAuthenticate
 
->>>>>>> Antor
 } = require("../Controller/userController");
 const { upload } = require("../Middleware/common/singleFileUpload");
 const {
