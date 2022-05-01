@@ -69,20 +69,14 @@ const singleItemFoodGetController = async (req, res, next) => {
 
 // food update controller
 const foodUpdateController = async (req, res, next) => {
-  const { itemName, categoryName, quantity, price, deliveryTime } = req.body;
-  const file = req.file?.filename || "";
   const { foodId } = req.params;
-
   try {
-    if (req.file && req.file.filename) {
+    if (req.file) {
       const food = await Food.findOneAndUpdate(
         { _id: foodId },
         {
           $set: {
             ...req.body,
-            quantity: parseInt(quantity),
-            price: parseInt(price),
-            discountPrice: parseInt(discountPrice),
             image: req.file.filename,
           },
         },
@@ -93,7 +87,7 @@ const foodUpdateController = async (req, res, next) => {
       unlink(path.join("public/" + `uploads/${food.image}`), (err) => {
         if (err) console.log(err);
       });
-
+console.log(food);
       // response
       res.status(200).json({
         success: true,
@@ -104,10 +98,7 @@ const foodUpdateController = async (req, res, next) => {
         { _id: foodId },
         {
           $set: {
-            ...req.body,
-            quantity: parseInt(quantity),
-            price: parseInt(price),
-            discountPrice: parseInt(discountPrice),
+            ...req.body
           },
         },
         { new: true }
