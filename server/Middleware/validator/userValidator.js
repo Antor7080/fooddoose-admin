@@ -6,63 +6,67 @@ const User = require("../../Models/userModel");
 
 // validator
 const addUserValidators = [
-  check("name")
-    .isLength({ min: 1 })
-    .withMessage("Name is required")
-    .isAlpha("en-US", { ignore: " -" })
-    .withMessage("Name must not contain anything other than alphabet")
-    .trim(),
-  check("shopName").isLength({ min: 1 }).withMessage("Shop Name is required"),
-  check("logo")
-    .isEmpty()
-    .withMessage("Please only submit .jpg, .jpeg & .png format."),
-  check("email")
-    .isEmail()
-    .withMessage("Invalid email address")
-    .trim()
-    .custom(async (value) => {
-      try {
-        const user = await User.findOne({ email: value });
-        if (user) {
-          throw createError("Email already is use!");
-        }
-      } catch (err) {
-        throw createError(err.message);
-      }
-    }),
-  check("number")
-    .isLength({ min: 1 })
-    .withMessage("Number is required")
-    .isMobilePhone("bn-BD", {
-      strictMode: false,
-    })
-    .withMessage("Mobile number must be a valid Bangladeshi mobile number")
-    .custom(async (value) => {
-      try {
-        const user = await User.findOne({ number: value });
-        if (user) {
-          throw createError("Mobile already in used!");
-        }
-      } catch (err) {
-        throw createError(err.message);
-      }
-    }),
-  check("password")
-    .isStrongPassword()
-    .withMessage(
-      "Password must be at least 8 characters long & should contain at least 1 lowercase, 1 uppercase, 1 number & 1 symbol"
-    ),
-  check("confirmPassword")
-    .isStrongPassword()
-    .withMessage(
-      "Password must be at least 8 characters long & should contain at least 1 lowercase, 1 uppercase, 1 number & 1 symbol"
-    )
-    .custom((confirmPassword, { req }) => {
-      if (confirmPassword !== req.body.password) {
-        return Promise.reject("Password confirmation does not match password");
-      }
-      return true;
-    }),
+    check("name")
+        .isLength({ min: 1 })
+        .withMessage("Name is required")
+        .isAlpha("en-US", { ignore: " -" })
+        .withMessage("Name must not contain anything other than alphabet")
+        .trim(),
+    check("shopName")
+        .isLength({ min: 1 })
+        .withMessage("Shop Name is required")
+    ,
+    check("logo")
+        .isEmpty()
+        .withMessage("Please only submit .jpg, .jpeg & .png format."),
+
+    check("email")
+        .isEmail()
+        .withMessage("Invalid email address")
+        .trim()
+        .custom(async (value) => {
+            try {
+                const user = await User.findOne({ email: value });
+                if (user) {
+                    throw createError("Email already is use!");
+                }
+            } catch (err) {
+                throw createError(err.message);
+            }
+        }),
+    check("number")
+        .isLength({ min: 1 })
+        .withMessage("Number is required")
+        .isMobilePhone("bn-BD", {
+            strictMode: false,
+        })
+        .withMessage("Mobile number must be a valid Bangladeshi mobile number")
+        .custom(async (value) => {
+            try {
+                const user = await User.findOne({ number: value });
+                if (user) {
+                    throw createError("Mobile already in used!");
+                }
+            } catch (err) {
+                throw createError(err.message);
+            }
+        }),
+    check("password")
+        .isStrongPassword()
+        .withMessage(
+            "Password must be at least 8 characters long & should contain at least 1 lowercase, 1 uppercase, 1 number & 1 symbol"
+        ),
+    check("confirmPassword")
+        .isStrongPassword()
+        .withMessage(
+            "Password must be at least 8 characters long & should contain at least 1 lowercase, 1 uppercase, 1 number & 1 symbol"
+        )
+        .custom((confirmPassword, { req }) => {
+            if (confirmPassword !== req.body.password) {
+                return Promise.reject("Password  does not matched");
+            }
+            return true;
+        }),
 ];
 
 // validation handler

@@ -1,5 +1,7 @@
 const userRouter = require("express").Router({ caseSensitive: true });
+const isAuthenticated = require('../Middleware/common/isAuthenticate')
 const {
+<<<<<<< HEAD
   userRegisterController,
   userLoginController,
   userLogoutController,
@@ -9,6 +11,17 @@ const {
   getSingleUserData,
   createAccessToken,
   createRefreshToken,
+=======
+    userRegisterController,
+    userLoginController,
+    userLogoutController,
+    userUpdateController,
+    refreshToken,
+    getAllUserDataController,
+    getSingleUserData,
+    isAuthenticate
+
+>>>>>>> Antor
 } = require("../Controller/userController");
 const { upload } = require("../Middleware/common/singleFileUpload");
 const {
@@ -33,22 +46,12 @@ userRouter.post(
   userRegisterController
 );
 userRouter.post("/login", userLoginController);
-userRouter.post("/logout", userLogoutController);
-userRouter.get("/all-user", getAllUserDataController); // TODO -->> remove route
-// userRouter.put(
-//   "/update/:id",
-//   userEditValidator,
-//   userEditValidatorErrorHandler,
-//   userUpdateController
-// );
-/* 
-// 
-userRouter.get('/refresh_token', userController.refreshToken);
-userRouter.get('/information/:id', userController.getUser)
-userRouter.get('/all-information', userController.allUser)
-userRouter.put('/edit/:id', auth, upload.single('avatar'), updateUserValidators, updateUserValidationHandler, userCtrl.editUser) */
+userRouter.put("/update/:id", isAuthenticated, upload.single("logo"), userUpdateController);
+userRouter.post('/logout', userLogoutController)
+userRouter.get('/all-user', getAllUserDataController)
+userRouter.post('/refreshToken', refreshToken);
+userRouter.get('/single-user-info/:id', getSingleUserData)
+userRouter.get('/isAuthenticate', isAuthenticated, isAuthenticate)
 
-// userRouter.patch('/addcart', auth, userCtrl.addCart)
-// userRouter.get('/history', auth, userCtrl.history)
 
 module.exports = userRouter;
