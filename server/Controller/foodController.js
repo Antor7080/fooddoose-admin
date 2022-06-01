@@ -4,14 +4,17 @@ const { unlink } = require("fs");
 
 // add new food post controller
 const addNewFoodPostController = async (req, res, next) => {
-  const { itemName, categoryName, quantity, price, deliveryTime } = req.body;
+  const { itemName, categoryName, quantity, price, deliveryTime, timeFormat } =
+    req.body;
   const file = req.file?.filename || "";
 
   try {
     const newFoodItem = new Food({
       ...req.body,
+      user: req.userId,
       quantity: parseInt(quantity),
       price: parseInt(price),
+      shopName: req.shopName,
       discountPrice: parseInt(req.body.discountPrice) || "",
       image: file,
     });
@@ -31,14 +34,31 @@ const addNewFoodPostController = async (req, res, next) => {
   }
 };
 
-// all foods get controller
+// logged in user all foods get controller
 const allFoodsGetController = async (req, res, next) => {
   try {
-    const foods = await Food.find({});
+    const foods = await Food.find({ user: req.userId });
 
     res.status(200).json({
       success: true,
       foods,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: `There was an server side error`,
+    });
+  }
+};
+
+// all food get controller
+const allFoods = async (req, res, next) => {
+  try {
+    const allFoods = await Food.find({ user: req.params.restaurantId });
+
+    res.status(200).json({
+      success: true,
+      allFoods,
     });
   } catch (error) {
     res.status(500).json({
@@ -70,35 +90,41 @@ const singleItemFoodGetController = async (req, res, next) => {
 // food update controller
 const foodUpdateController = async (req, res, next) => {
   const { foodId } = req.params;
+  const food = await Food.findOne({ _id: foodId });
+
   try {
     if (req.file) {
-      const food = await Food.findOneAndUpdate(
+      const updateFood = await Food.findOneAndUpdate(
         { _id: foodId },
         {
           $set: {
-            ...req.body,
             image: req.file.filename,
+            ...req.body,
           },
         },
         { new: true }
       );
 
       // delete prev img
-      unlink(path.join("public/" + `uploads/${food.image}`), (err) => {
-        if (err) console.log(err);
-      });
-console.log(food);
+      unlink(
+        path.join(path.dirname(__dirname), `/public/uploads/${food.image}`),
+        (err) => {
+          if (err) console.log(err);
+        }
+      );
+
       // response
       res.status(200).json({
         success: true,
         message: "Food updated successfully.",
+        updateFood,
       });
     } else {
-      await Food.findOneAndUpdate(
+      const updateFood = await Food.findOneAndUpdate(
         { _id: foodId },
         {
           $set: {
-            ...req.body
+            ...req.body,
           },
         },
         { new: true }
@@ -106,6 +132,7 @@ console.log(food);
       res.status(200).json({
         success: true,
         message: "Food updated successfully.",
+        updateFood,
       });
     }
   } catch (error) {
@@ -141,4 +168,5 @@ module.exports = {
   singleItemFoodGetController,
   foodUpdateController,
   singleFoodItemDeleteController,
+  allFoods,
 };

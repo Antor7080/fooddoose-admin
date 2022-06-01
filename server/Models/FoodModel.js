@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const autoIncrement = require("mongoose-auto-increment");
 const foodSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "userModel",
+    },
     itemName: {
       type: String,
       required: true,
@@ -10,6 +14,9 @@ const foodSchema = new mongoose.Schema(
     categoryName: {
       type: String,
       required: true,
+    },
+    shopName: {
+      type: String,
     },
     quantity: {
       type: Number,
@@ -22,6 +29,9 @@ const foodSchema = new mongoose.Schema(
     deliveryTime: {
       type: String,
       required: true,
+    },
+    timeFormat: {
+      type: String,
     },
     discountType: {
       type: String,
