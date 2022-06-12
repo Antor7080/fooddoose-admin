@@ -59,11 +59,11 @@ const userRegisterController = async (req, res, next) => {
 const isAuthenticate = async (req, res) => {
   try {
     res.json({ success: true });
-  } catch (error) {}
+  } catch (error) { }
 };
 
 // user login controller
-const userLoginController = async (req, res, next) => {
+const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await Users.findOne({ email });
@@ -106,7 +106,7 @@ const userLoginController = async (req, res, next) => {
 };
 
 // user logout controller
-const userLogoutController = async (req, res, next) => {
+const logout = async (req, res, next) => {
   const refreshToken = req.body.rf;
 
   try {
@@ -119,7 +119,7 @@ const userLogoutController = async (req, res, next) => {
 };
 
 // user update controller
-const userUpdateController = async (req, res, next) => {
+const update = async (req, res, next) => {
   const { id } = req.params;
   const { name, email, password, shop_name, link, number, status } = req.body;
   const user = await Users.findOne({ _id: id });
@@ -214,36 +214,36 @@ const refreshToken = (req, res) => {
 };
 
 // all user data
-const getAllUserDataController = async (req, res, next) => {
-    try {
-        const { page = 1, limit = 10, status } = req.query;
-        if (status) {
-            const total = await Users.find({ status: status });
+const getAllUser = async (req, res, next) => {
+  try {
+    const { page = 1, limit = 10, status } = req.query;
+    if (status) {
+      const total = await Users.find({ status: status });
 
-            const user = await Users.find({ status: status })
-                .sort({ createdAt: -1 })
-                .select("-password -__v -confirmPassword")
-                .limit(limit * 1)
-                .skip((page - 1) * limit);
-            if (!user) return res.status(400).json({ msg: "User does not exist." });
-            res.status(200).json({ total: total.length, user });
-        }
-        if (!status) {
-            const total = await Users.find();
-            const user = await Users.find()
-                .select("-password -__v -confirmPassword")
-                .limit(limit * 1)
-                .skip((page - 1) * limit);
-            if (!user) return res.status(400).json({ msg: "User does not exist." });
-            res.status(200).json({ total: total.length, user });
-        }
-    } catch (err) {
-        return res.status(500).json({ msg: err.message });
+      const user = await Users.find({ status: status })
+        .sort({ createdAt: -1 })
+        .select("-password -__v -confirmPassword")
+        .limit(limit * 1)
+        .skip((page - 1) * limit);
+      if (!user) return res.status(400).json({ msg: "User does not exist." });
+      res.status(200).json({ total: total.length, user });
     }
+    if (!status) {
+      const total = await Users.find();
+      const user = await Users.find()
+        .select("-password -__v -confirmPassword")
+        .limit(limit * 1)
+        .skip((page - 1) * limit);
+      if (!user) return res.status(400).json({ msg: "User does not exist." });
+      res.status(200).json({ total: total.length, user });
+    }
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
 };
 
 // get single user data
-const getSingleUserData = async (req, res, next) => {
+const getSingleUser = async (req, res, next) => {
   try {
     const user = await Users.findOne({ _id: req.userId }).select(
       "-password -__v -confirmPassword"
@@ -261,9 +261,7 @@ const adminGetSingleUserData = async (req, res, next) => {
 
   try {
     const user = await Users.findOne({ _id: id });
-
     if (!user) return res.status(400).json({ msg: "User does not exist." });
-
     res.status(200).json({
       success: true,
       data: user,
@@ -279,14 +277,12 @@ const adminGetSingleUserData = async (req, res, next) => {
 // status rejected controller
 const statusRejectedController = async (req, res, next) => {
   const { id } = req.params;
-
   try {
     const updateStatus = await Users.findOneAndUpdate(
       { _id: id },
       { $set: { status: "Rejected" } },
       { new: true }
     );
-
     return res.status(200).json({
       success: true,
       message: `Status rejected successfully.!`,
@@ -327,7 +323,7 @@ const createAccessToken = (user) => {
 };
 
 const createRefreshToken = (user) => {
-    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+  return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
 };
 
 module.exports = {
