@@ -1,0 +1,8 @@
+.unpaid{
+    
+  transform: rotate(25deg);
+  position: absolute;
+  right: -16%;
+  top: 3%;
+  width: 56%;
+}

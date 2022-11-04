@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap');
+.barcode{
+    font-family: 'Libre Barcode 39';
+    font-size: 50px;
+    color: black;
+}

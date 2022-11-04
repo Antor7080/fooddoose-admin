@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+body,
+button {
+  font-family: "Inter", sans-serif;
+}
+.location-search-input{
+ padding: 5px 10px!important;
+ border-radius: 5px!important;
+border: 1px solid black!important;
+margin-bottom: 10px;
+}
+.map-search input:focus,
+.map-search input:active,
+.map-search input:hover{
+  padding: 5px 10px!important;
+ border-radius: 5px!important;
+ box-shadow: none!important;
+ outline: none!important;
+ border: 1px solid black!important;
+}
+:root {
+  --offcanvas-width: 270px;
+  --topNavbarHeight: 56px;
+}
+.sidebar-nav {
+  width: var(--offcanvas-width);
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+}
+.sidebar-link .right-icon {
+  display: inline-flex;
+}
+.sidebar-link[aria-expanded="true"] .right-icon {
+  transform: rotate(180deg);
+}
+@media (min-width: 992px) {
+  body {
+    overflow: auto !important;
+  }
+  main {
+    margin-left: var(--offcanvas-width);
+  }
+  /* this is to remove the backdrop */
+  .offcanvas-backdrop::before {
+    display: none;
+  }
+  .offcanv ::-webkit-scrollbar {
+    display: none !important;
+  }
+  .offcanv {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    margin-top: 20px!important;
+  }
+
+  .navbar-light .navbar-nav .nav-link,
+  .navbar-light .navbar-nav .nav-link.active {
+    color: #000 !important;
+    transition: 0.5s;
+  }
+  .navbar-light .navbar-nav .nav-link:hover,
+  .navbar-light .navbar-nav .nav-link.active:hover {
+    color: #f46f22 !important;
+  }
+
+  .add-merchant label {
+    margin-bottom: 7px;
+  }
+  .sidebar-nav {
+    -webkit-transform: none;
+    transform: none;
+    visibility: visible !important;
+    height: calc(100% - var(--topNavbarHeight));
+    top: var(--topNavbarHeight);
+  }
+}
+.navStyle {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.table > :not(:first-child) {
+  border-top: 1px solid currentColor;
+}
+
+.top-content button,
+.table-top button,
+.common-color,
+.common-color:hover {
+  background-color: #660000 !important;
+  border: #660000!important;
+  color: #fff;
+}
+.modal-button,
+.modal-button:focus,
+.modal-button:hover,
+.modal-button:active{
+  border: none;
+  box-shadow: none;
+  outline: none!important;
+}
+.action-icon i{
+  color: #660000;
+}
+.top-content a {
+  text-decoration: none !important;
+  color: #fff !important;
+}
+
+.pagination-btn,
+.pagination-btn:focus,
+.pagination-btn:hover{
+margin: 0 2px;
+box-shadow: none!important;
+}
+
+label {
+  margin-bottom: 7px;
+}
+
+.ck-editor__editable {
+  min-height: 200px;
+}
+
+@media (max-width: 655px) {
+  .days {
+    display: block !important;
+  }
+  .table-top {
+    display: block !important;
+  }
+}
+
+.update-button a {
+  text-decoration: none;
+  color: #fff;
+}
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #ff0000;
+}
+body input:focus,
+textarea:focus,
+select:focus {
+  outline: 0 none !important;
+  border: 1px solid black;
+  box-shadow: none !important;
+}
