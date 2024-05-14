@@ -1,7 +1,9 @@
 import React from "react";
-import Header from "../../Header";
+import Navbar from "../../../layouts/backend/Navbar";
+import Sidebar from "../../../layouts/backend/Sidebar";
 
-const EditOrder = () => {
+
+const EditOrderMerchant = () => {
   return (
     <div>
       <Navbar />
@@ -122,4 +124,4 @@ const EditOrder = () => {
   );
 };
 
-export default EditOrder;
+export default EditOrderMerchant;

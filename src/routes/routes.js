@@ -15,7 +15,11 @@ import RejectedOrder from "../Components/Admin/Order/RejectedOrder";
 import ReturningOrder from "../Components/Admin/Order/ReturningOrder";
 import DeliveryCost from "../Components/Admin/DeliveryCost/DeliveryCost";
 import MerchantBanner from "../Components/Admin/AddBanner/MerchantBanner";
-
+import AddCouponCode from "../Components/CouponCode/AddCouponCode";
+import AdminCouponCode from '../Components/CouponCode/AdminCouponCode';
+import MerchantCouponCode from '../Components/CouponCode/MerchantCouponCode';
+import OrderDetails from "../Components/Merchant/Order/OrderDetails";
+import ReadyOrder from "../Components/Merchant/Order/ReadyOrder";
 const routes = [
   { path: "/admin", exact: true, name: "Admin" },
   {
@@ -114,6 +118,7 @@ const routes = [
     name: "ProgressOrder",
     component: ProgressOrder,
   },
+
   {
     path: "/admin/returning-order",
     exact: true,
@@ -125,6 +130,31 @@ const routes = [
     exact: true,
     name: "DeliveryCost",
     component: DeliveryCost,
+  },
+  {
+    path: '/admin/add-coupon-code',
+    exact: true,
+    name: 'AddCouponCode',
+    component: AddCouponCode
+  }
+  ,
+  {
+    path: '/admin/admin-coupon',
+    exact: true,
+    name: 'AdminCouponCode',
+    component: AdminCouponCode,
+  },
+  {
+    path: '/admin/merchant-coupon-code',
+    exact: true,
+    name: 'MerchantCouponCode',
+    component: MerchantCouponCode,
+  },
+  {
+    path: '/order-details/:id',
+    exact: true,
+    name: 'MerchantCouponCode',
+    component: OrderDetails,
   }
 ];
 

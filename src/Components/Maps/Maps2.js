@@ -1,7 +1,7 @@
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
-import useAuth from '../../Hooks/useAuth';
-import { useEffect } from 'react';
 import axios from 'axios';
+import { useEffect } from 'react';
+import useAuth from '../../Hooks/useAuth';
 /*global google*/
 const Maps2 = () => {
 

@@ -1,10 +1,11 @@
 import { Link, useHistory } from "react-router-dom";
-import logo from "../../images/logo.png";
 import useAuth from '../../Hooks/useAuth';
+import logo from "../../images/logo.png";
 
 export default function Navbar() {
     const history = useHistory()
     const { logout } = useAuth()
+    const userInfo = JSON.parse(localStorage.getItem('user'))
     return (
         <nav className="navbar navbar-expand-lg navbar-light py-3   navStyle fixed-top sticky">
             <div className="container-fluid ">
@@ -69,7 +70,7 @@ export default function Navbar() {
                             <ul className="dropdown-menu dropdown-menu-end">
 
                                 <li>
-                                    <Link className="dropdown-item" to="/">
+                                    <Link className="dropdown-item" to={userInfo?.role === 2 ? "/merchant/profile" : "/admin/profile"}>
                                         <i className="fas fa-user-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </Link>

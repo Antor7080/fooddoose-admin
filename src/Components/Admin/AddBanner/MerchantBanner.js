@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import useAxios from "../../../Hooks/useAxios";
 import Navbar from "../../../layouts/backend/Navbar";
 import Sidebar from "../../../layouts/backend/Sidebar";
@@ -216,9 +215,9 @@ const MerchantBanner = () => {
                               alt=""
                             />
                           </td>
-                          <td>{data?.user.name}</td>
-                          <td>{data?.user.shopName}</td>
-                          <td>{data?.user.number}</td>
+                          <td>{data?.user?.name}</td>
+                          <td>{data?.user?.shopName}</td>
+                          <td>{data?.user?.number}</td>
                           <td>{data?.status}</td>
                           <td className="d-flex align-items-center justify-content-around" style={{ minWidth: "100px" }}>
                             <button title="Deactive" className="btn btn-warning" onClick={() => { handleStatus(data._id, "Active") }}>

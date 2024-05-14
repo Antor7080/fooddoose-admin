@@ -9,6 +9,7 @@ export default function Login() {
     const [password, SetPassword] = useState("");
     const { loginUser, errors } = useAuth()
     const handleSubmit = (e) => {
+        
         e.preventDefault();
         let items = { 'email': email.toLocaleLowerCase(), 'password': password, history };
         loginUser(items)

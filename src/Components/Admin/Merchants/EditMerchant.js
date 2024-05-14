@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 import useAxios from "../../../Hooks/useAxios";
 import Navbar from "../../../layouts/backend/Navbar";
 import Sidebar from "../../../layouts/backend/Sidebar";
 
 const EditMerchants = (props) => {
+  const { defaultLocation } = useAuth()
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -21,49 +23,27 @@ const EditMerchants = (props) => {
   const form = useRef(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({});
   const [prevData, setPrevData] = useState({})
-  const [logo, setLogo] = useState(null);
-  const [getLocation, setGetLocation] = useState("");
-  const [address, setAddress] = useState("Dhaka, Bangladesh");
-  const DefaultLocation = { lat: 23.810331, lng: 90.412521 };
-  const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
+
+
+
   const axios = useAxios();
   const { id } = useParams();
 
   useEffect(() => {
-
     axios.get(`/user/single-user-info/${id}`)
-      .then((response) => {
-        setPrevData(response.data)
+      .then((res) => {
+        setPrevData(res.data)
       })
+    // setDefaultLocation({ lat: res.data.latitude, lng: res.data.longitude })
+  }, [])
+  console.log(prevData);
 
-    fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${defaultLocation.lat},${defaultLocation.lng}&sensor=true&key=AIzaSyCfpeP-t1coXdE_R8PCOI8e38hoAMcTKr8`
-    )
-      .then((data) => data.json())
-      .then((d) => setGetLocation(address));
-  }, [address]);
-
-  const handleChange = (address) => {
-    setAddress(address);
-  };
-
- /*  const handleSelect = (address) => {
-    geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        setDefaultLocation({ lat: latLng.lat, lng: latLng.lng });
-        setAddress(address);
-      })
-      .catch((error) => console.error("Error", error));
-  }; */
-
- /*  const submit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     const formData = new FormData(form.current);
-    formData.append("latitude", defaultLocation.lat);
-    formData.append("longitude", defaultLocation.lng);
+    // formData.append("latitude", defaultLocation.lat);
+    // formData.append("longitude", defaultLocation.lng);
     setLoading(true);
     console.log(formData)
     axios
@@ -73,7 +53,7 @@ const EditMerchants = (props) => {
         console.log(response);
         if (response.status === 200) {
           setErrors("");
-          setData({});
+
           Toast.fire({
             icon: "success",
             title: "Account Approved successfull!!",
@@ -88,19 +68,17 @@ const EditMerchants = (props) => {
       })
       .catch((error) => {
         console.log(error);
-        setLogo(error.response.data.logo);
-        setData(error.response.data.data);
         setErrors(error.response.data.errors);
         setLoading(false);
       });
-  }; */
+  };
 
   return (
     <div>
       <Navbar />
       <Sidebar />
       <main className="mt-5 pt-5">
-      {/*   <div className="container-fluid">
+        <div className="container-fluid">
           <div
             style={{ backgroundColor: "rgb(255, 90, 0, .6)" }}
             className="d-flex justify-content-between top-content align-items-center p-2"
@@ -123,102 +101,14 @@ const EditMerchants = (props) => {
                 ></i>{" "}
                 <span>
                   <small>
-                    Current Loaction: <b>{getLocation.slice(0, 60)} </b>{" "}
+                    Current Loaction: <b>{prevData?.address?.slice(0, 60)} </b>{" "}
                     <i className="fas fa-chevron-down"></i>{" "}
                   </small>{" "}
                 </span>{" "}
               </div>
-            
-              <div style={{ width: "180%" }}>
-                <div
-                  className="modal fade"
-                  id="exampleModal"
-                  tabIndex="-1"
-                  aria-labelledby="exampleModalLabel"
-                  aria-hidden="true"
-                >
-                  <div className="modal-dialog modal-lg">
-                    <div className="modal-content">
-                      <div className="d-flex justify-content-between">
-                        <button
-                          type="button"
-                          className="btn-close text-end m-3"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                        <h2 className="fw-bold fd-primary-text pt-3 pe-5">
-                          Choose Your Location
-                        </h2>
-                      </div>
 
-                      <div
-                        className="P-1 p-md-5 modal-body"
-                        style={{ height: "70vh" }}
-                      >
-                        <PlacesAutocomplete
-                          value={address}
-                          onChange={handleChange}
-                          onSelect={handleSelect}
-                        >
-                          {({
-                            getInputProps,
-                            suggestions,
-                            getSuggestionItemProps,
-                            loading,
-                          }) => (
-                            <div>
-                              <input
-                                {...getInputProps({
-                                  placeholder: "Search Places ...",
-                                  className: "location-search-input",
-                                })}
-                              />
-                              <div className="autocomplete-dropdown-container">
-                                {loading && <div>Loading...</div>}
-                                {suggestions.map((suggestion) => {
-                                  const className = suggestion.active
-                                    ? "suggestion-item--active"
-                                    : "suggestion-item";
-                                  // inline style for demonstration purpose
-                                  const style = suggestion.active
-                                    ? {
-                                      backgroundColor: "#fafafa",
-                                      cursor: "pointer",
-                                    }
-                                    : {
-                                      backgroundColor: "#ffffff",
-                                      cursor: "pointer",
-                                    };
-                                  return (
-                                    <div
-                                      {...getSuggestionItemProps(suggestion, {
-                                        className,
-                                        style,
-                                      })}
-                                    >
-                                      <span>{suggestion.description}</span>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
-                        </PlacesAutocomplete>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Save changes
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            
+
+
             </div>
             {loading ? (
               <div className="text-center">
@@ -249,7 +139,7 @@ const EditMerchants = (props) => {
                       type="text"
                       name="name"
                       id="mName"
-                      defaultValue={prevData.name}
+                      defaultValue={prevData?.name}
                       placeholder="Merchant Name"
                     />
                     <div style={{ color: "red" }}>
@@ -262,7 +152,7 @@ const EditMerchants = (props) => {
                       className="form-control"
                       type="text"
                       name="shopName"
-                      defaultValue={prevData.shopName}
+                      defaultValue={prevData?.shopName}
                       id="ahopName"
                       placeholder="Shop Name"
                     />
@@ -277,7 +167,7 @@ const EditMerchants = (props) => {
                       type="email"
                       name="email"
                       id="email"
-                      defaultValue={prevData.email}
+                      defaultValue={prevData?.email}
                       placeholder="Email"
                     />
                     <div style={{ color: "red" }}>
@@ -289,7 +179,7 @@ const EditMerchants = (props) => {
                     <input
                       className="form-control"
                       type="text"
-                      defaultValue={prevData.number}
+                      defaultValue={prevData?.number}
                       name="number"
                       id="number"
                       placeholder="Number"
@@ -304,7 +194,7 @@ const EditMerchants = (props) => {
                       className="form-control"
                       type="time"
                       name="openHour"
-                      defaultValue={prevData.openHour}
+                      defaultValue={prevData?.openHour}
                       id="openHour"
                       placeholder="Open hour"
                     />
@@ -319,7 +209,7 @@ const EditMerchants = (props) => {
                       type="time"
                       name="closeHour"
                       id="closeHour"
-                      defaultValue={prevData.closeHour}
+                      defaultValue={prevData?.closeHour}
                       placeholder="Close hour"
                     />
                     <div style={{ color: "red" }}>
@@ -341,7 +231,7 @@ const EditMerchants = (props) => {
                     type="text"
                     name="status"
                     id="status"
-                    value="Rejected"
+                    value="Approved"
                   />
                   <div className="col-lg-6 col-md-6 col-sm-6 mb-3">
                     <label htmlFor="image">Upload Shop Image</label>
@@ -378,7 +268,7 @@ const EditMerchants = (props) => {
               </form>
             )}
           </div>
-        </div> */}
+        </div>
       </main>
     </div>
   );

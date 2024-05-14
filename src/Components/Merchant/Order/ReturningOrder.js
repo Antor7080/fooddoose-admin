@@ -14,7 +14,7 @@ const ReturningOrderMerchant = () => {
 
   useEffect(() => {
     setLoading(true);
-    axiosInstance.get(`/order/merchant-order/?page=${page}&status="Returning`).then((res) => {
+    axiosInstance.get(`/order/merchant-order/?page=${page}&status=Returned`).then((res) => {
       console.log(res.data);
       const allData = res.data?.orders;
       const count = res.data?.total;
@@ -119,12 +119,12 @@ const ReturningOrderMerchant = () => {
                           </td>
                           <td>{data.status}</td>
                           <td className="d-flex justify-content-center align-items-center">
-                            <button
+                          {/*   <button
                               onClick={() => handleStatus(data?._id, "Approved")}
                               className="btn btn-primary"
                             >
                               Approve
-                            </button>
+                            </button> */}
                             <Link to={`/order-details/${data._id}`}>
                               <button className="btn btn-secondary">View</button>
                             </Link>

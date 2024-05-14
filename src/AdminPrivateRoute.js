@@ -4,7 +4,6 @@ export default function AdminPrivateRoute({ ...rest }) {
     const token = localStorage.getItem("token")
   
     return (
-      
             <Route {...rest}
                 render={({ props, location }) =>
                 token ?
@@ -13,5 +12,4 @@ export default function AdminPrivateRoute({ ...rest }) {
                 }
             />
     );
-
 }

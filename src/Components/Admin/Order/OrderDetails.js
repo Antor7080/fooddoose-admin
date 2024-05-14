@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { useReactToPrint } from "react-to-print";
 import useAxios from "../../../Hooks/useAxios";
 import logo from "../../../images/logoCircle.png";
 import Navbar from "../../../layouts/backend/Navbar";
 import Sidebar from "../../../layouts/backend/Sidebar";
+import { useReactToPrint } from "react-to-print";
 
 const OrderDetails = () => {
   const axiosInstance = useAxios();
@@ -22,11 +22,11 @@ const OrderDetails = () => {
   }, [id]);
 
   const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    documentTitle: id + ".pdf",
-    onafterprint: () => alert("Printed"),
-  });
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+        documentTitle: "Order Invoice",
+        onafterprint: () => alert("Printed"),
+    });
 
   return (
     <div>
@@ -34,11 +34,11 @@ const OrderDetails = () => {
       <Sidebar />
       <main className="mt-5 pt-5">
         <div className="container-fluid">
-          <div className="d-flex justify-content-evenly top-content pt-5">
+          <div className="d-flex justify-content-between top-content">
             <h4>Order Details</h4>{" "}
             <button className="btn btn-primary" onClick={handlePrint}>Print</button>
           </div>
-          <div ref={componentRef} style={{ width: "100%", height: window.innerHeight }} className="text-center d-flex justify-content-center">
+          <div className="text-center d-flex justify-content-center">
             <div className=" shadow  text-center p-5 m-5">
               <div className="invoice-box ">
                 <table className="" cellPadding="0" cellSpacing="0">

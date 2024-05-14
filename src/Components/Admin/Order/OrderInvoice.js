@@ -1,8 +1,10 @@
 import React from "react";
-import Header from "../../Header";
+import Navbar from "../../../layouts/backend/Navbar";
+import Sidebar from "../../../layouts/backend/Sidebar";
+
 import "./Invoice.css";
 
-const OrderInvoice = () => {
+const OrderInvoiceMerchant = () => {
   return (
     <div>
       <Navbar />
@@ -121,4 +123,4 @@ const OrderInvoice = () => {
   );
 };
 
-export default OrderInvoice;
+export default OrderInvoiceMerchant;

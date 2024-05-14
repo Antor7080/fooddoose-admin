@@ -121,10 +121,10 @@ const ProgressOrderMerchant = () => {
                           <td>{data.status}</td>
                           <td className="d-flex justify-content-center align-items-center">
                             <button
-                              onClick={() => handleStatus(data?._id, "Processing")}
+                              onClick={() => handleStatus(data?._id, "Ready to Pick")}
                               className="btn btn-primary"
                             >
-                              Approve
+                              Cooked
                             </button>
                             <Link to={`/order-details/${data._id}`}>
                               <button className="btn btn-secondary">View</button>

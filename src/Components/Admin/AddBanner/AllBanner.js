@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import useAxios from "../../../Hooks/useAxios";
 import Navbar from "../../../layouts/backend/Navbar";
 import Sidebar from "../../../layouts/backend/Sidebar";
 
 const AllBanner = () => {
   const [allBanner, setAllBanner] = useState([]);
-
   const [page, setPage] = useState(1);
-
   const [call, setCall] = useState(true);
   const [modalData, setModalData] = useState({});
   const [loading, setLoading] = useState(false);

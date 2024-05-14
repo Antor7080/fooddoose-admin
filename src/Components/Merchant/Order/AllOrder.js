@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAxios from "../../../Hooks/useAxios";
 import Navbar from "../../../layouts/backend/Navbar";
@@ -120,12 +120,14 @@ const AllOrderMerchant = () => {
                           </td>
                           <td>{data.status}</td>
                           <td className="d-flex justify-content-center align-items-center">
-                            <button
-                              onClick={() => handleStatus(data?._id, "Approved")}
-                              className="btn btn-primary"
-                            >
-                              Approve
-                            </button>
+                            {
+                              data?.status === "Pending" ? <button
+                                onClick={() => handleStatus(data?._id, "Processing")}
+                                className="btn btn-primary"
+                              >
+                                Approve
+                              </button>: null
+                            }
                             <Link to={`/order-details/${data._id}`}>
                               <button className="btn btn-secondary">View</button>
                             </Link>

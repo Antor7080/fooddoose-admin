@@ -19,19 +19,19 @@ export default function Sidebar() {
                   <li>
                     <Link
                       to="/merchant/dashboard"
-                      className="nav-link px-3 active"
+                      className="nav-link px-3"
                     >
                       <span className="me-2">
                         <i className="fas fa-home"></i>
                       </span>
-                      <span>Dashboard Merchant</span>
+                    <span>Dashboard Merchant</span>
                     </Link>
                   </li>
 
                   {/* Merchant  */}
-                  <li>
+                  <li className="menu-is-opening menu-open">
                     <Link
-                      className="nav-link px-3 sidebar-link"
+                      className="nav-link px-3 sidebar-link active"
                       data-bs-toggle="collapse"
                       to="#food"
                     >
@@ -50,7 +50,7 @@ export default function Sidebar() {
                         <li>
                           <Link
                             to="/merchant/add-food"
-                            className="nav-link px-3"
+                            className="nav-link px-3 active"
                           >
                             <span className="me-2">
                               <i className="fas fa-list-ul"></i>
@@ -157,6 +157,39 @@ export default function Sidebar() {
                               <i className="fas fa-list-ul"></i>
                             </span>
                             <span>Progress Order</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/merchant/ready-order"
+                            className="nav-link px-3"
+                          >
+                            <span className="me-2">
+                              <i className="fas fa-list-ul"></i>
+                            </span>
+                            <span>Ready Order</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/merchant/Shipping-order"
+                            className="nav-link px-3"
+                          >
+                            <span className="me-2">
+                              <i className="fas fa-list-ul"></i>
+                            </span>
+                            <span>Shipping Order</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/merchant/Completed-order"
+                            className="nav-link px-3"
+                          >
+                            <span className="me-2">
+                              <i className="fas fa-list-ul"></i>
+                            </span>
+                            <span>Completed Order</span>
                           </Link>
                         </li>
                         <li>
@@ -322,7 +355,7 @@ export default function Sidebar() {
                         </li>
                         <li>
                         </li>
-                       {/*  <li className="mb-5">
+                        {/*  <li className="mb-5">
                           <Link
                             to="/admin/rejected-merchants"
                             className="nav-link px-3"
@@ -333,6 +366,52 @@ export default function Sidebar() {
                             <span>All Pages</span>
                           </Link>
                         </li> */}
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a
+                      className="nav-link px-3 sidebar-link"
+                      data-bs-toggle="collapse"
+                      href="#Coupon"
+                    >
+                      <span className="me-2">
+                        <i className="fas fa-cog"></i>
+                      </span>
+                      <span>Coupon  Code</span>
+                      <span className="ms-auto">
+                        <span className="right-icon">
+                          <i className="bi bi-chevron-down"></i>
+                        </span>
+                      </span>
+                    </a>
+                    <div className="collapse" id="Coupon">
+                      <ul className="navbar-nav ps-3">
+                        <li>
+                          <Link
+                            to="/merchant/add-coupon-code"
+                            className="nav-link px-3"
+                          >
+                            <span className="me-2">
+                              <i className="fas fa-list-ul"></i>
+                            </span>
+                            <span>Add CouponCode</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/merchant/coupon-code"
+                            className="nav-link px-3"
+                          >
+                            <span className="me-2">
+                              <i className="fas fa-list-ul"></i>
+                            </span>
+                            <span>All Coupon Code</span>
+                          </Link>
+                        </li>
+                        <li>
+                        </li>
+                        
                       </ul>
                     </div>
                   </li>
@@ -727,7 +806,7 @@ export default function Sidebar() {
                             <span>DeliveryCost</span>
                           </Link>
                         </li>
-                        
+
                       </ul>
                     </div>
                   </li>
@@ -785,6 +864,65 @@ export default function Sidebar() {
                               <i className="fas fa-list-ul"></i>
                             </span>
                             <span>Admin Banner</span>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+
+
+                  {/* //coupon code */}
+                  <li>
+                    <a
+                      className="nav-link px-3 sidebar-link"
+                      data-bs-toggle="collapse"
+                      href="#Coupon"
+                    >
+                      <span className="me-2">
+                        <i className="fas fa-cog"></i>
+                      </span>
+                      <span>Coupon  Code</span>
+                      <span className="ms-auto">
+                        <span className="right-icon">
+                          <i className="bi bi-chevron-down"></i>
+                        </span>
+                      </span>
+                    </a>
+                    <div className="collapse" id="Coupon">
+                      <ul className="navbar-nav ps-3">
+                        <li>
+                          <Link
+                            to="/admin/add-coupon-code"
+                            className="nav-link px-3"
+                          >
+                            <span className="me-2">
+                              <i className="fas fa-list-ul"></i>
+                            </span>
+                            <span>Add CouponCode</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/merchant-coupon-code"
+                            className="nav-link px-3"
+                          >
+                            <span className="me-2">
+                              <i className="fas fa-list-ul"></i>
+                            </span>
+                            <span>Merchant Coupon Code</span>
+                          </Link>
+                        </li>
+                        <li>
+                        </li>
+                        <li className="mb-5">
+                          <Link
+                            to="/admin/admin-coupon"
+                            className="nav-link px-3"
+                          >
+                            <span className="me-2">
+                              <i className="fas fa-list-ul"></i>
+                            </span>
+                            <span>Admin Coupon</span>
                           </Link>
                         </li>
                       </ul>

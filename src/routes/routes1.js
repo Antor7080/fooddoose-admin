@@ -23,6 +23,11 @@ import EditExtraItem from "../Components/Merchant/Food/EditExtraItem";
 import OrderDetails from "../Components/Merchant/Order/OrderDetails";
 import AddBanner from "../Components/Merchant/AddBanner/AddBanner";
 import AllBanner from "../Components/Merchant/AddBanner/AllBanner";
+import AddCouponCode from "../Components/Merchant/CouponCode/AddCouponCode";
+import MerchantCouponCode from "../Components/Merchant/CouponCode/MerchantCouponCode";
+import ReadyOrder from "../Components/Merchant/Order/ReadyOrder";
+import ShippingOrder from "../Components/Merchant/Order/ShippingOrder";
+import CompletedOrder from "../Components/Merchant/Order/CompletedOrder";
 
 const routes = [
   {
@@ -110,6 +115,24 @@ const routes = [
     component: ProgressOrderMerchant,
   },
   {
+    path: "/merchant/ready-order",
+    exact: true,
+    name: "ReadyOrder",
+    component: ReadyOrder,
+  },
+  {
+    path: "/merchant/Shipping-order",
+    exact: true,
+    name: "ShippingOrder",
+    component: ShippingOrder,
+  },
+  {
+    path: "/merchant/Completed-order",
+    exact: true,
+    name: "CompletedOrder",
+    component: CompletedOrder,
+  },
+  {
     path: "/order-details/:id",
     exact: true,
     name: "OrderDetails",
@@ -174,6 +197,18 @@ const routes = [
     exact: true,
     name: "UpdatePassword",
     component: UpdatePassword,
+  },
+  {
+    path: "/merchant/add-coupon-code",
+    exact: true,
+    name: "AddCouponCode",
+    component: AddCouponCode,
+  },
+  {
+    path: "/merchant/coupon-code",
+    exact: true,
+    name: "MerchantCouponCode",
+    component: MerchantCouponCode,
   },
 ];
 

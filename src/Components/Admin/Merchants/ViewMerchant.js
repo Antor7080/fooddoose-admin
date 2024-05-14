@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../../layouts/backend/Navbar";
-import Sidebar from "../../../layouts/backend/Sidebar";
 import { useParams } from "react-router-dom";
 import useAxios from "../../../Hooks/useAxios";
+import Navbar from "../../../layouts/backend/Navbar";
+import Sidebar from "../../../layouts/backend/Sidebar";
 
 
 

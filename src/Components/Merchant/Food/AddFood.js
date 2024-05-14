@@ -51,6 +51,7 @@ const AddFood = () => {
     e.preventDefault();
     const formData = new FormData(form.current);
     setLoading(true);
+   
     axiosInstance
       .post("/food/", formData)
       .then(function (response) {

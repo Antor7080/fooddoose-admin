@@ -130,12 +130,12 @@ const RejectedOrderMerchant = () => {
                               <button className="btn btn-secondary">View</button>
                             </Link>
 
-                            <button
+                         {/*    <button
                               onClick={() => handleStatus(data?._id, "Cancelled")}
                               className="btn btn-danger"
                             >
                               Reject
-                            </button>
+                            </button> */}
                             {/*    <button
                           onClick={() => handleStatus(data?._id, "Completed")}
                           className="btn btn-primary"

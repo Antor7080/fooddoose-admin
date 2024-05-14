@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAxios from "../../../Hooks/useAxios";
 import Navbar from "../../../layouts/backend/Navbar";
 import Sidebar from "../../../layouts/backend/Sidebar";
 
-const AllOrderMerchant = () => {
+const CompletedOrder = () => {
   const axiosInstance = useAxios();
   const [order, setOrder] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ const AllOrderMerchant = () => {
 
   useEffect(() => {
     setLoading(true);
-    axiosInstance.get(`/order/all-order/?page=${page}`).then((res) => {
+    axiosInstance.get(`/order/merchant-order/?page=${page}&status=Completed`).then((res) => {
       console.log(res.data);
       const allData = res.data?.orders;
       const count = res.data?.total;
@@ -120,24 +120,10 @@ const AllOrderMerchant = () => {
                           </td>
                           <td>{data.status}</td>
                           <td className="d-flex justify-content-center align-items-center">
-                            {
-                              data?.status === "Pending" ? <button
-                                onClick={() => handleStatus(data?._id, "Processing")}
-                                className="btn btn-primary"
-                              >
-                                Approve
-                              </button>: null
-                            }
+                           
                             <Link to={`/order-details/${data._id}`}>
                               <button className="btn btn-secondary">View</button>
                             </Link>
-
-                            <button
-                              onClick={() => handleStatus(data?._id, "Cancelled")}
-                              className="btn btn-danger"
-                            >
-                              Reject
-                            </button>
                             {/*    <button
                           onClick={() => handleStatus(data?._id, "Completed")}
                           className="btn btn-primary"
@@ -206,4 +192,4 @@ const AllOrderMerchant = () => {
   );
 };
 
-export default AllOrderMerchant;
+export default CompletedOrder;

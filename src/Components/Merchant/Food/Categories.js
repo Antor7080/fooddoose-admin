@@ -116,7 +116,7 @@ const Categories = () => {
                     className="form-control"
                     type="text"
                     name="categoryName"
-                    defaultValue={data.categoryName}
+                    defaultValue={data?.categoryName}
                     id="categoryName"
                     aria-describedby="categoryName"
                   />
